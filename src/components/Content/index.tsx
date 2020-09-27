@@ -1,13 +1,8 @@
-import React from 'react'
-import { Layout, Card, Col, Row } from 'antd'
-
-import CreatePopoverTop from '../../components/Popovers/PopoverTop';
-import CreatePopoverBottom from '../../components/Popovers/PopoverBottom';
-import CreatePopoverLeft from '../../components/Popovers/PopoverLeft';
-import CreatePopoverRight from '../../components/Popovers/PopoverRight';
-import CreateTable from './../Table';
-import CreateImage from '../../components/Image';
-import CreateCollapse from '../../components/Collapse'
+import React, {useState} from 'react'
+import { Layout, Col, Row } from 'antd'
+import Modal from '../Modal/modal'
+import Button from '../Button/button'
+import { SearchOutlined } from '@ant-design/icons';
 
 const styleTitleMain: React.CSSProperties = {
     fontSize: '54px',
@@ -24,6 +19,7 @@ const styleContent: React.CSSProperties = {
     justifyContent: 'flex-start',
     alignItems: 'center',
     flexDirection: 'column',
+    background: '#fff',
 
 }
 
@@ -31,39 +27,57 @@ const styleContent: React.CSSProperties = {
 function Content(): JSX.Element {
 
     const { Content } = Layout
+    const [visible, setVisible] = useState(false)
+
+    function onOk(): void {
+        setVisible(true)
+    }
+    function onCancel(): void {
+        setVisible(false)
+    }
+
     return (
         <>
             <Content style={styleContent}>
-                <h1 style={styleTitleMain} >Biblioteca de Componentes</h1>
+                <h1 style={styleTitleMain} >Componentes AntDesign - Cinthia</h1>
                 <div className="site-card-wrapper">
                     <Row gutter={16}>
                         <Col span={20}>
-                            <Card title="Popovers" bordered={false}>
-                                <div style={styleContent}>
-                                    <CreatePopoverTop />
-                                    <br></br>
-                                    <CreatePopoverBottom />
-                                    <br></br>
-                                    <CreatePopoverLeft />
-                                    <br></br>
-                                    <CreatePopoverRight />
-                                </div>
-                            </Card>
-                        </Col>
-                        <Col span={20}>
-                            <Card title="Tabelas" bordered={false}>
-                                <CreateTable />
-                            </Card>
-                        </Col>
-                        <Col span={20}>
-                            <Card title="Collapse" bordered={false}>
-                                <CreateCollapse />
-                            </Card>
-                        </Col>
-                        <Col span={20}>
-                            <Card title="Imagens" bordered={false}>
-                                <CreateImage />
-                            </Card>
+                        <Button  onClick={onOk}  >
+                            Open Modal
+                        </Button>
+                            <Modal  
+                                title="Teste"
+                                cancelText="FECHAR"
+                                okText="ALGUMA AÇÃO"
+                                visible={visible}
+                                onCancel={onCancel}
+                                >
+                                    Lorem ipsum dolor sit amet.
+                            </Modal>
+                        <p>---------------------------------------</p>
+                        <Button  onClick={onCancel} loading={true} >
+                        Loading
+                        </Button>
+                        <p>---------------------------------------</p>
+                        <Button  onClick={onCancel}  ghost={true} >
+                            Ghost
+                        </Button>
+                        disabled
+                        <p>---------------------------------------</p>
+                        <Button  onClick={onCancel}  disabled={true} >
+                            INATIVO
+                        </Button>
+                        <p>---------------------------------------</p>
+                        <Button  icon={<SearchOutlined/>} onClick={onCancel}  >
+                            Icon
+                        </Button>
+                        <p>---------------------------------------</p>
+                        <Button  onClick={onCancel} danger={true}  >
+                            DANGER
+                        </Button>
+                        
+                         
                         </Col>
                     </Row>
                 </div>
